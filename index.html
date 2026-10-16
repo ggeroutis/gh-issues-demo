@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Login Page</title>
+    <style>
+        /* Reset basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container styling */
+        .login-container {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 1.5rem;
+            color: #333333;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        /* Form control groups */
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666666;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Utilities */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #555555;
+        }
+
+        .forgot-password {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Primary Button */
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #667eea;
+            border: none;
+            border-radius: 5px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-btn:hover {
+            background-color: #5a6fd6;
+        }
+
+        /* Error Message Box */
+        .error-message {
+            background-color: #ffe3e3;
+            color: #e53e3e;
+            padding: 0.75rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            display: none;
+            font-size: 0.85rem;
+            text-align: center;
+            border: 1px solid #fbcfe8;
+        }
+
+        /* Footer links */
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #666666;
+        }
+
+        .signup-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+        
+        <!-- Error Alert Div -->
+        <div id="error-box" class="error-message"></div>
+
+        <form id="loginForm" action="/login-endpoint" method="POST" onsubmit="return validateForm(event)">
+            <!-- Email Input -->
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="username">
+            </div>
+
+            <!-- Password Input -->
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <!-- Options Row -->
+            <div class="form-actions">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember" name="remember"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="login-btn">Sign In</button>
+        </form>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#">Create one</a>
+        </div>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            // Prevent standard form submission for demonstration purposes
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorBox = document.getElementById('error-box');
+
+            // Simple front-end validation
+            if (!email || !password) {
+                showError("Please fill out all required fields.");
+                return false;
+            }
+
+            if (password.length < 6) {
+                showError("Password must be at least 6 characters long.");
+                return false;
+            }
+
+            // If validation passes, clear errors and alert success
+            errorBox.style.display = 'none';
+            alert("Validation successful! Submitting credentials:\nEmail: " + email);
+            
+            // Un-comment the line below to let the form submit to your real backend action:
+            // event.target.submit();
+        }
+
+        function showError(message) {
+            const errorBox = document.getElementById('error-box');
+            errorBox.textContent = message;
+            errorBox.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
